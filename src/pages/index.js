@@ -66,9 +66,10 @@ export default function HomePage() {
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         flexDirection: {
-                            xs: 'column',
+                            xs: 'column-reverse',
                             sm: 'row',
                         },
+                        gap:{xs:'1rem', sm:'0rem'},
                         width: '100%', maxWidth: '700px',
                         borderRadius: '5px', padding: '32px', margin: '16px',
                         boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
@@ -80,11 +81,11 @@ export default function HomePage() {
                         as="form"
                         styleSheet={{
                             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                            width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
+                            width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px', gap:'1rem'
                         }}
                     >
-                        <Title tag="h2">Boas vindas de volta!</Title>
-                        <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
+                        <Title tag="h2">Bem Vindo!</Title>
+                        <Text variant="body3" styleSheet={{color: appConfig.theme.colors.neutrals[300] }}>
                             {appConfig.name}
                         </Text>
 

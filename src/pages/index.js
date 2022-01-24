@@ -1,3 +1,4 @@
+import {Box,Button,Text,TextField,Image} from '@skynexui/components'
 import appConfig from '../../config.json'
 
 function GlobalStyle() {
@@ -8,6 +9,7 @@ function GlobalStyle() {
           padding: 0;
           box-sizing: border-box;
           list-style: none;
+          background:black;
         }
         body {
           font-family: 'Open Sans', sans-serif;
@@ -29,19 +31,31 @@ function GlobalStyle() {
     );
   }
 
+function Title(props) {
+    const Tag = props.tag || 'h1';
+    return (
+        <>
+        <Tag>{props.children}</Tag>
+        <style jsx>{`
+                ${Tag} {
+                    color: ${appConfig.theme.colors.neutrals['000']};
+                    font-size: 24px;
+                    font-weight: 600;
+                }
+                `}</style>
+        </>
+    );
+}
+
 function HomePage() {
     return (
         <div>
             <GlobalStyle/>
-            <h1>
-                Setup environment ...
-            </h1>
 
-            <style jsx>{`
-                h1{
-                    color:${appConfig.theme.colors.primary['800']}    
-                }    
-            `}</style>
+            <Title tag='h2'>
+                Ola mundo !!!!!!!!!
+            </Title>
+
         </div>
     )
   }

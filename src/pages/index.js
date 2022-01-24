@@ -1,3 +1,5 @@
+import appConfig from '../../config.json'
+
 function GlobalStyle() {
     return (
       <style global jsx>{`
@@ -34,6 +36,12 @@ function HomePage() {
             <h1>
                 Setup environment ...
             </h1>
+
+            <style jsx>{`
+                h1{
+                    color:${appConfig.theme.colors.primary['800']}    
+                }    
+            `}</style>
         </div>
     )
   }

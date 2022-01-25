@@ -1,4 +1,5 @@
 import { Box, Button, Text, TextField, Image } from '@skynexui/components'
+import { useState } from 'react';
 import appConfig from '../../config.json'
 
 function GlobalStyle() {
@@ -47,7 +48,12 @@ function Title(props) {
 }
 
 export default function HomePage() {
-    const username = 'joaopedroalb';
+    const [text,setText] = useState('')
+    const [username,setUsername] = useState('joaopedroalb');
+
+    function handleClik(){
+        setUsername(text)
+    }
 
     return (
         <>
@@ -90,6 +96,8 @@ export default function HomePage() {
                         </Text>
 
                         <TextField
+                            value={text}
+                            onChange={(e)=>setText(e.target.value)}
                             fullWidth
                             textFieldColors={{
                                 neutral: {
@@ -101,7 +109,8 @@ export default function HomePage() {
                             }}
                         />
                         <Button
-                            type='submit'
+                            //type='submit'
+                            type='button'
                             label='Entrar'
                             fullWidth
                             buttonColors={{
@@ -110,6 +119,7 @@ export default function HomePage() {
                                 mainColorLight: appConfig.theme.colors.primary[400],
                                 mainColorStrong: appConfig.theme.colors.primary[600],
                             }}
+                            onClick={handleClik}
                         />
                     </Box>
                     {/* Formulário */}

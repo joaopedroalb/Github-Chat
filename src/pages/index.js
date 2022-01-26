@@ -1,35 +1,7 @@
 import { Box, Button, Text, TextField, Image } from '@skynexui/components'
 import { useState } from 'react';
 import appConfig from '../../config.json'
-
-function GlobalStyle() {
-    return (
-        <style global jsx>{`
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-          list-style: none;
-        }
-        body {
-          font-family: 'Open Sans', sans-serif;
-        }
-        /* App fit Height */ 
-        html, body, #__next {
-          min-height: 100vh;
-          display: flex;
-          flex: 1;
-        }
-        #__next {
-          flex: 1;
-        }
-        #__next > * {
-          flex: 1;
-        }
-        /* ./App fit Height */ 
-      `}</style>
-    );
-}
+import { useRouter } from 'next/router';
 
 function Title(props) {
     const Tag = props.tag || 'h1';
@@ -49,14 +21,16 @@ function Title(props) {
 
 export default function HomePage() {
     const [username,setUsername] = useState('joaopedroalb');
+    const router = useRouter()
 
-    function handleSubmit(){
-        ///setUsername(text)
+    function handleSubmit(e){
+        e.preventDefault();
+        console.log('entrei no submit')
+        router.push('/chat')
     }
 
     return (
         <>
-            <GlobalStyle />
             <Box
                 styleSheet={{
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -83,6 +57,7 @@ export default function HomePage() {
                 >
                     {/* Formulário */}
                     <Box
+                        onSubmit={e=>handleSubmit(e)}
                         as="form"
                         styleSheet={{
                             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
@@ -108,8 +83,7 @@ export default function HomePage() {
                             }}
                         />
                         <Button
-                            //type='submit'
-                            type='button'
+                            type='submit'
                             label='Entrar'
                             fullWidth
                             buttonColors={{
@@ -118,7 +92,6 @@ export default function HomePage() {
                                 mainColorLight: appConfig.theme.colors.primary[400],
                                 mainColorStrong: appConfig.theme.colors.primary[600],
                             }}
-                            onClick={handleSubmit}
                         />
                     </Box>
                     {/* Formulário */}

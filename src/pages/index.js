@@ -48,11 +48,10 @@ function Title(props) {
 }
 
 export default function HomePage() {
-    const [text,setText] = useState('')
     const [username,setUsername] = useState('joaopedroalb');
 
-    function handleClik(){
-        setUsername(text)
+    function handleSubmit(){
+        ///setUsername(text)
     }
 
     return (
@@ -96,8 +95,8 @@ export default function HomePage() {
                         </Text>
 
                         <TextField
-                            value={text}
-                            onChange={(e)=>setText(e.target.value)}
+                            value={username}
+                            onBlur={(e)=>setUsername(e.target.value)}
                             fullWidth
                             textFieldColors={{
                                 neutral: {
@@ -119,7 +118,7 @@ export default function HomePage() {
                                 mainColorLight: appConfig.theme.colors.primary[400],
                                 mainColorStrong: appConfig.theme.colors.primary[600],
                             }}
-                            onClick={handleClik}
+                            onClick={handleSubmit}
                         />
                     </Box>
                     {/* Formulário */}

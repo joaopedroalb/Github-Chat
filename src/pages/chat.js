@@ -89,7 +89,22 @@ export default function Chat() {
                                 padding: '6px 8px',
                                 backgroundColor: appConfig.theme.colors.neutrals[800],
                                 marginRight: '12px',
+                                marginTop:'10px',
                                 color: appConfig.theme.colors.neutrals[200],
+                            }}
+                        />
+                        <Button
+                            type='button'
+                            label='Enviar'
+                            onClick={()=>handleNewMessage(mensagem)}
+                            buttonColors={{
+                                contrastColor: appConfig.theme.colors.neutrals["000"],
+                                mainColor: appConfig.theme.colors.primary[500],
+                                mainColorLight: appConfig.theme.colors.primary[400],
+                                mainColorStrong: appConfig.theme.colors.primary[600],
+                            }}
+                            styleSheet={{
+                                display:{xs:'none',md:'block'}
                             }}
                         />
                     </Box>

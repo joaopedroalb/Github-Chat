@@ -11,7 +11,12 @@ export default function Chat() {
     const {username} = useContext(UsernameContext)
 
     function removeMsg(id){
-        const newList = lstMsg.filter(x=>x.id!=id)
+        let newList = lstMsg.filter(x=>x.id!=id)
+        newList = newList.map((msg,index)=>{
+            msg={...msg}
+            msg.id = index+1
+            return msg
+        })
         setlstMsg(newList)
     }
 

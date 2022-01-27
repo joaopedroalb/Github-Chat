@@ -20,8 +20,11 @@ function Title(props) {
 }
 
 export default function HomePage() {
+    const IMAGE_DEFAULT = 'https://rafaturis.com.br/wp-content/uploads/2014/01/default-placeholder.png'
     const [username,setUsername] = useState('joaopedroalb');
     const router = useRouter()
+
+    const usernameIsInvalid = username.length<=2
 
     function handleSubmit(e){
         e.preventDefault();
@@ -83,6 +86,7 @@ export default function HomePage() {
                             }}
                         />
                         <Button
+                            disabled={usernameIsInvalid}
                             type='submit'
                             label='Entrar'
                             fullWidth
@@ -118,7 +122,7 @@ export default function HomePage() {
                                 borderRadius: '50%',
                                 marginBottom: '16px',
                             }}
-                            src={`https://github.com/${username}.png`}
+                            src={usernameIsInvalid?IMAGE_DEFAULT:`https://github.com/${username}.png`}
                         />
                         <Text
                             variant="body4"

@@ -2,7 +2,7 @@
 function Chat() {
     return (
         <div>
-            <div>Chat</div>
+            <h1>Chat</h1>
         </div>
     )
 }

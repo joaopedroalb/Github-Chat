@@ -1,17 +1,19 @@
 import { Box, Text, TextField, Image, Button } from '@skynexui/components';
-import React from 'react';
+import React, { useContext } from 'react';
 import appConfig from '../../config.json';
+import { UsernameContext } from '../Data/UsernameContext';
 
 export default function Chat() {
     const [mensagem, setMensagem] = React.useState('');
     const [lstMsg, setlstMsg] = React.useState([]);
+    const {username} = useContext(UsernameContext)
 
     function handleNewMessage(newMessage) {
         if(newMessage.replaceAll(' ','')=='')
             return null
         const msg = {
             id: lstMsg.length + 1,
-            user: 'joaopedroalb',
+            user: username,
             texto: newMessage,
         };
 

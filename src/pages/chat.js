@@ -70,10 +70,7 @@ export default function Chat() {
                     >
                         <TextField
                             value={mensagem}
-                            onChange={(event) => {
-                                const valor = event.target.value;
-                                setMensagem(valor);
-                            }}
+                            onChange={(e) =>setMensagem(e.target.value)}
                             onKeyPress={(event) => {
                                 if (event.key === 'Enter') {
                                     event.preventDefault();

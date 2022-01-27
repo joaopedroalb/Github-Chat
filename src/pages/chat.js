@@ -11,7 +11,7 @@ export default function Chat() {
             return null
         const msg = {
             id: lstMsg.length + 1,
-            de: 'joaopedroalb',
+            user: 'joaopedroalb',
             texto: newMessage,
         };
 
@@ -157,10 +157,10 @@ function MessageList(props) {
                                     display: 'inline-block',
                                     marginRight: '8px',
                                 }}
-                                src={`https://github.com/joaopedroalb.png`}
+                                src={`https://github.com/${mensagem.user}.png`}
                             />
                             <Text tag="strong">
-                                {mensagem.de}
+                                {mensagem.user}
                             </Text>
                             <Text
                                 styleSheet={{

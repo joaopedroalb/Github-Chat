@@ -1,10 +1,13 @@
+import { UserNameProvider } from "../Data/UsernameContext"
 import GlobalStyle from "./globalstyle"
 
 function MyApp({ Component, pageProps }) {
     return (
         <>
-            <GlobalStyle/>
-            <Component {...pageProps} />
+            <UserNameProvider>
+                <GlobalStyle/>
+                <Component {...pageProps} />
+            </UserNameProvider>
         </>
     )
 }

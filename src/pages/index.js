@@ -1,7 +1,8 @@
 import { Box, Button, Text, TextField, Image } from '@skynexui/components'
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import appConfig from '../../config.json'
 import { useRouter } from 'next/router';
+import { UsernameContext } from '../Data/UsernameContext';
 
 function Title(props) {
     const Tag = props.tag || 'h1';
@@ -21,7 +22,8 @@ function Title(props) {
 
 export default function HomePage() {
     const IMAGE_DEFAULT = 'https://rafaturis.com.br/wp-content/uploads/2014/01/default-placeholder.png'
-    const [username,setUsername] = useState('joaopedroalb');
+    const {username,setUsername} = useContext(UsernameContext)
+    //const [username,setUsername] = useState('joaopedroalb');
     const router = useRouter()
 
     const usernameIsInvalid = username.length<=2

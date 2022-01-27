@@ -1,12 +1,19 @@
-import { Box, Text, TextField, Image, Button } from '@skynexui/components';
+import { Box, Text, TextField, Image, Button, Icon } from '@skynexui/components';
 import React, { useContext } from 'react';
 import appConfig from '../../config.json';
 import { UsernameContext } from '../Data/UsernameContext';
+
+
 
 export default function Chat() {
     const [mensagem, setMensagem] = React.useState('');
     const [lstMsg, setlstMsg] = React.useState([]);
     const {username} = useContext(UsernameContext)
+
+    function removeMsg(id){
+        const newList = lstMsg.filter(x=>x.id!=id)
+        setlstMsg(newList)
+    }
 
     function handleNewMessage(newMessage) {
         if(newMessage.replaceAll(' ','')=='')
@@ -62,7 +69,7 @@ export default function Chat() {
                         padding: '16px',
                     }}
                 >
-                    <MessageList mensagens={lstMsg} />
+                    <MessageList mensagens={lstMsg} removeMsg={removeMsg} />
                     <Box
                         as="form"
                         styleSheet={{
@@ -133,7 +140,6 @@ function Header() {
 }
 
 function MessageList(props) {
-    console.log(props);
     return (
         <Box
             tag="ul"
@@ -164,31 +170,44 @@ function MessageList(props) {
                         <Box
                             styleSheet={{
                                 marginBottom: '8px',
+                                display: 'flex',
+                                alignItems:'center',
+                                justifyContent:'space-between',
+                                paddingRight:'1rem'
+
                             }}
                         >
-                            <Image
-                                styleSheet={{
-                                    width: '20px',
-                                    height: '20px',
-                                    borderRadius: '50%',
-                                    display: 'inline-block',
-                                    marginRight: '8px',
-                                }}
-                                src={`https://github.com/${mensagem.user}.png`}
-                            />
-                            <Text tag="strong">
-                                {mensagem.user}
-                            </Text>
-                            <Text
-                                styleSheet={{
-                                    fontSize: '10px',
-                                    marginLeft: '8px',
-                                    color: appConfig.theme.colors.neutrals[300],
-                                }}
-                                tag="span"
-                            >
-                                {(new Date().toLocaleDateString())}
-                            </Text>
+                            <Box>
+                                <Image
+                                    styleSheet={{
+                                        width: '20px',
+                                        height: '20px',
+                                        borderRadius: '50%',
+                                        display: 'inline-block',
+                                        marginRight: '8px',
+                                    }}
+                                    src={`https://github.com/${mensagem.user}.png`}
+                                />
+                                <Text tag="strong">
+                                    {mensagem.user}
+                                </Text>
+                                <Text
+                                    styleSheet={{
+                                        fontSize: '10px',
+                                        marginLeft: '8px',
+                                        color: appConfig.theme.colors.neutrals[300],
+                                    }}
+                                    tag="span"
+                                >
+                                    {(new Date().toLocaleDateString())}
+                                </Text>
+                            </Box>
+                            <Icon   label="Icon Component" 
+                                    name='FaRegTrashAlt'  
+                                    styleSheet = {{
+                                        cursor: 'pointer'
+                                    }} 
+                                    onClick={()=>props.removeMsg(mensagem.id)}/>
                         </Box>
                         {mensagem.texto}
                     </Text>

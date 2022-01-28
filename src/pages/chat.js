@@ -157,7 +157,12 @@ export default function Chat() {
                                     marginBottom:'4px'
                                 }}
                             />
-                            <ButtonSendSticker styleSheet={{marginTop:'4px'}} handleClick={handleNewMessage}/>
+                            <ButtonSendSticker 
+                                styleSheet={{marginTop:'4px'}} 
+                                onStickerClick={sticker=>{
+                                   handleNewMessage(`:sticker:${sticker}`)
+                                }}
+                            />
                         </Box>
                     </Box>
                 </Box>
@@ -189,7 +194,6 @@ function MessageList(props) {
     function dateMsg(date){
 
         const newDate = new Date(date)
-        console.log(typeof newDate)
         
         const dd = String(newDate.getDate()).padStart(2, '0');
         const mm = String(newDate.getMonth() + 1).padStart(2, '0'); //January is 0!

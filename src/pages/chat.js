@@ -100,7 +100,7 @@ export default function Chat() {
                         padding: '16px',
                     }}
                 >
-                    <MessageList mensagens={lstMsg} removeMsg={removeMsg} />
+                    <MessageList mensagens={lstMsg} removeMsg={removeMsg} loading={loading}/>
                     <Box
                         as="form"
                         styleSheet={{
@@ -184,6 +184,33 @@ function MessageList(props) {
 
        return dd + '/' + mm + '/' + yyyy
     }
+
+    function renderDefaultMsg(){
+        const loadingImage = 'https://monophy.com/media/THksdFc9bFRAQcIc13/monophy.gif'
+        if(props.loading){
+            return (
+                <Box
+                    tag="li"
+                    styleSheet={{
+                        borderRadius: '5px',
+                        marginBottom: '12px',
+                    }}
+                >
+                    <Image
+                        styleSheet={{
+                            width: '70px',
+                            height: '70px',
+                            display: 'inline-block',
+                            marginLeft: '1rem',
+                        }}
+                        src={loadingImage}
+                    />
+                </Box>
+            )
+        }
+
+        return null
+    }
     
     return (
         <Box
@@ -198,6 +225,7 @@ function MessageList(props) {
                 marginBottom: '16px',
             }}
         >
+            {renderDefaultMsg()}
             {props.mensagens.map((mensagem) => {
                 return (
                     <Text

@@ -1,5 +1,5 @@
 import { Box, Text, TextField, Image, Button, Icon } from '@skynexui/components';
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect,useState } from 'react';
 import appConfig from '../../config.json';
 import { UsernameContext } from '../Data/UsernameContext';
 import { createClient } from '@supabase/supabase-js'
@@ -7,8 +7,9 @@ import { createClient } from '@supabase/supabase-js'
 
 
 export default function Chat() {
-    const [mensagem, setMensagem] = React.useState('');
-    const [lstMsg, setlstMsg] = React.useState([]);
+    const [mensagem, setMensagem] = useState('');
+    const [lstMsg, setlstMsg] = useState([]);
+    const [loading,setLoading] = useState(true)
     const {username} = useContext(UsernameContext)
     const supabaseClient = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
 
@@ -25,21 +26,18 @@ export default function Chat() {
                 return 0
             })
             setlstMsg(lst.filter(m=>!m.disable))
+            setLoading(false)
         }
         fetchData()
         
     },[])
 
     async function removeMsg(id){
-
+        console.log(id)
         await supabaseClient.from('messages').update({disable:true}).match({id:id})
 
         let newList = lstMsg.filter(x=>x.id!=id)
-        newList = newList.map((msg,index)=>{
-            msg={...msg}
-            msg.id = index+1
-            return msg
-        })
+    
         setlstMsg(newList)
     }
 
@@ -53,7 +51,7 @@ export default function Chat() {
         };
 
         const resp = await supabaseClient.from('messages').insert([msg])
-        console.log(resp)
+        console.log(resp.data[0])
         const newMsg = resp.data
 
         setlstMsg([
@@ -111,6 +109,7 @@ export default function Chat() {
                         }}
                     >
                         <TextField
+                            disable={loading}
                             value={mensagem}
                             onChange={(e) =>setMensagem(e.target.value)}
                             onKeyPress={(event) => {

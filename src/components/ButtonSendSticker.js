@@ -92,7 +92,7 @@ export function ButtonSendSticker(props) {
                   cursor: 'pointer'
                 }}
               >
-                <Image src={sticker} />
+                <Image src={sticker} onClick={()=>props.handleClick(`:sticker:${sticker}`)}/>
               </Text>
             ))}
           </Box>

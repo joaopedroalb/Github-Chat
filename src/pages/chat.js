@@ -157,7 +157,7 @@ export default function Chat() {
                                     marginBottom:'4px'
                                 }}
                             />
-                            <ButtonSendSticker styleSheet={{marginTop:'4px'}}/>
+                            <ButtonSendSticker styleSheet={{marginTop:'4px'}} handleClick={handleNewMessage}/>
                         </Box>
                     </Box>
                 </Box>

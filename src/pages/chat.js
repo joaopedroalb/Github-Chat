@@ -198,6 +198,25 @@ function MessageList(props) {
        return dd + '/' + mm + '/' + yyyy
     }
 
+    function renderContentMsg(textMsg){
+        if(textMsg.includes(':sticker:')){
+            let url = textMsg.replace(':sticker:','')
+            url = url.replace(' ','')
+            return(
+                <Image
+                    styleSheet={{
+                        width: '300px',
+                        height: '300px',
+                        marginLeft:'2rem'
+                    }}
+                    src={url}
+                />
+            )
+        }
+
+        return textMsg
+    }
+
     function renderDefaultMsg(){
         const loadingImage = 'https://monophy.com/media/THksdFc9bFRAQcIc13/monophy.gif'
         if(props.loading){
@@ -308,7 +327,7 @@ function MessageList(props) {
                                 color: '#bcbaba'
                             }}
                         >
-                            {mensagem.text}
+                            {renderContentMsg(mensagem.text)}
                         </Text>
                     </Text>
                 );

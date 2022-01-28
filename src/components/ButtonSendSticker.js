@@ -88,7 +88,8 @@ export function ButtonSendSticker(props) {
                   },
                   hover: {
                     backgroundColor: appConfig.theme.colors.neutrals[600],
-                  }
+                  },
+                  cursor: 'pointer'
                 }}
               >
                 <Image src={sticker} />

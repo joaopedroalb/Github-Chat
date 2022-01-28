@@ -109,7 +109,7 @@ export default function Chat() {
                         }}
                     >
                         <TextField
-                            disable={loading}
+                            disabled={loading}
                             value={mensagem}
                             onChange={(e) =>setMensagem(e.target.value)}
                             onKeyPress={(event) => {

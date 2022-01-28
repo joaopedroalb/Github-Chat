@@ -250,20 +250,25 @@ function MessageList(props) {
 
                             }}
                         >
-                            <Box>
-                                <Image
-                                    styleSheet={{
-                                        width: '20px',
-                                        height: '20px',
-                                        borderRadius: '50%',
-                                        display: 'inline-block',
-                                        marginRight: '8px',
-                                    }}
-                                    src={`https://github.com/${mensagem.user}.png`}
-                                />
-                                <Text tag="strong">
+                            <Box styleSheet={{display:'flex',alignItems:'center'}}>
+                                <a href={`https://github.com/${mensagem.user}`} style={{display:'flex',alignItems:'center'}}>
+                                    <Image
+                                        
+                                        styleSheet={{
+                                            width: '20px',
+                                            height: '20px',
+                                            borderRadius: '50%',
+                                            display: 'inline-block',
+                                            marginRight: '8px',
+                                            cursor: 'pointer'
+                                        }}
+                                        src={`https://github.com/${mensagem.user}.png`}
+                                    />
+
+                                    <Text tag="strong" styleSheet={{cursor:'pointer',color:'#FFFF'}}>
                                     {mensagem.user}
-                                </Text>
+                                    </Text>
+                                </a>
                                 <Text
                                     styleSheet={{
                                         fontSize: '10px',

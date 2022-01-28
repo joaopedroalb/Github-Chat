@@ -6,6 +6,7 @@ export default function GlobalStyle() {
           padding: 0;
           box-sizing: border-box;
           list-style: none;
+          text-decoration:none;
         }
         body {
           font-family: 'Open Sans', sans-serif;

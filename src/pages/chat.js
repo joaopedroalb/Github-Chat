@@ -1,7 +1,8 @@
 import { Box, Text, TextField, Image, Button, Icon } from '@skynexui/components';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import appConfig from '../../config.json';
 import { UsernameContext } from '../Data/UsernameContext';
+import { createClient } from '@supabase/supabase-js'
 
 
 
@@ -9,8 +10,30 @@ export default function Chat() {
     const [mensagem, setMensagem] = React.useState('');
     const [lstMsg, setlstMsg] = React.useState([]);
     const {username} = useContext(UsernameContext)
+    const supabaseClient = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
 
-    function removeMsg(id){
+
+    useEffect(()=>{
+        async function fetchData(){
+            const resp = await supabaseClient.from('messages').select('*')
+            const lst = resp.data.sort((a,b)=>{
+                if(a.id>b.id) 
+                    return -1
+                if(a.id<b.id)
+                    return 1
+                
+                return 0
+            })
+            setlstMsg(lst.filter(m=>!m.disable))
+        }
+        fetchData()
+        
+    },[])
+
+    async function removeMsg(id){
+
+        await supabaseClient.from('messages').update({disable:true}).match({id:id})
+
         let newList = lstMsg.filter(x=>x.id!=id)
         newList = newList.map((msg,index)=>{
             msg={...msg}
@@ -20,19 +43,24 @@ export default function Chat() {
         setlstMsg(newList)
     }
 
-    function handleNewMessage(newMessage) {
+    async function handleNewMessage(newMessage) {
         if(newMessage.replaceAll(' ','')=='')
             return null
+
         const msg = {
-            id: lstMsg.length + 1,
             user: username,
             text: newMessage,
         };
 
+        const resp = await supabaseClient.from('messages').insert([msg])
+        console.log(resp)
+        const newMsg = resp.data
+
         setlstMsg([
-            msg,
+            ...newMsg,
             ...lstMsg,
         ]);
+
         setMensagem('');
     }
 
@@ -145,6 +173,19 @@ function Header() {
 }
 
 function MessageList(props) {
+
+    function dateMsg(date){
+
+        const newDate = new Date(date)
+        console.log(typeof newDate)
+        
+        const dd = String(newDate.getDate()).padStart(2, '0');
+        const mm = String(newDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+        const yyyy = newDate.getFullYear();
+
+       return dd + '/' + mm + '/' + yyyy
+    }
+    
     return (
         <Box
             tag="ul"
@@ -204,7 +245,7 @@ function MessageList(props) {
                                     }}
                                     tag="span"
                                 >
-                                    {(new Date().toLocaleDateString())}
+                                    {dateMsg(mensagem.created_at)}
                                 </Text>
                             </Box>
                             <Icon   label="Icon Component" 
@@ -216,7 +257,6 @@ function MessageList(props) {
                         </Box>
                         <Text 
                             styleSheet={{
-                                padding:'1rem',
                                 color: '#bcbaba'
                             }}
                         >

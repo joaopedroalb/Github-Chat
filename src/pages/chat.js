@@ -26,7 +26,7 @@ export default function Chat() {
         const msg = {
             id: lstMsg.length + 1,
             user: username,
-            texto: newMessage,
+            text: newMessage,
         };
 
         setlstMsg([
@@ -214,7 +214,14 @@ function MessageList(props) {
                                     }} 
                                     onClick={()=>props.removeMsg(mensagem.id)}/>
                         </Box>
-                        {mensagem.texto}
+                        <Text 
+                            styleSheet={{
+                                padding:'1rem',
+                                color: '#bcbaba'
+                            }}
+                        >
+                            {mensagem.text}
+                        </Text>
                     </Text>
                 );
             })}

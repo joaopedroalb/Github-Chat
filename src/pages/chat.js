@@ -3,6 +3,7 @@ import { useContext, useEffect,useState } from 'react';
 import appConfig from '../../config.json';
 import { UsernameContext } from '../Data/UsernameContext';
 import { createClient } from '@supabase/supabase-js'
+import {ButtonSendSticker} from '../components/ButtonSendSticker'
 
 
 
@@ -132,20 +133,32 @@ export default function Chat() {
                                 color: appConfig.theme.colors.neutrals[200],
                             }}
                         />
-                        <Button
-                            type='button'
-                            label='Enviar'
-                            onClick={()=>handleNewMessage(mensagem)}
-                            buttonColors={{
-                                contrastColor: appConfig.theme.colors.neutrals["000"],
-                                mainColor: appConfig.theme.colors.primary[500],
-                                mainColorLight: appConfig.theme.colors.primary[400],
-                                mainColorStrong: appConfig.theme.colors.primary[600],
-                            }}
+                        <Box
                             styleSheet={{
-                                display:{xs:'none',md:'block'}
+                                display:'flex',
+                                alignItems:'center',
+                                justifyContent:'center',
+                                gap:'8px'
                             }}
-                        />
+                        >
+                            
+                            <Button
+                                type='button'
+                                label='Enviar'
+                                onClick={()=>handleNewMessage(mensagem)}
+                                buttonColors={{
+                                    contrastColor: appConfig.theme.colors.neutrals["000"],
+                                    mainColor: appConfig.theme.colors.primary[500],
+                                    mainColorLight: appConfig.theme.colors.primary[400],
+                                    mainColorStrong: appConfig.theme.colors.primary[600],
+                                }}
+                                styleSheet={{
+                                    display:{xs:'none',md:'block'},
+                                    marginBottom:'4px'
+                                }}
+                            />
+                            <ButtonSendSticker styleSheet={{marginTop:'4px'}}/>
+                        </Box>
                     </Box>
                 </Box>
             </Box>
@@ -283,7 +296,10 @@ function MessageList(props) {
                             <Icon   label="Icon Component" 
                                     name='FaRegTrashAlt'  
                                     styleSheet = {{
-                                        cursor: 'pointer'
+                                        cursor: 'pointer',
+                                        hover: {
+                                            color: '#bcbaba',
+                                        }
                                     }} 
                                     onClick={()=>props.removeMsg(mensagem.id)}/>
                         </Box>

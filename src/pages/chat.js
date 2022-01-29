@@ -15,6 +15,19 @@ export default function Chat() {
     const supabaseClient = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
 
 
+    function updateMessagesRealTime(){
+
+        return supabaseClient
+                    .from('messages')
+                    .on('INSERT',(data)=>{
+                        setlstMsg((currentValue)=>{
+                            return [data.new,...currentValue]
+                        })
+                    })
+                    .subscribe()
+
+    }
+
     useEffect(()=>{
         async function fetchData(){
             const resp = await supabaseClient.from('messages').select('*')
@@ -23,7 +36,6 @@ export default function Chat() {
                     return -1
                 if(a.id<b.id)
                     return 1
-                
                 return 0
             })
             setlstMsg(lst.filter(m=>!m.disable))
@@ -31,10 +43,10 @@ export default function Chat() {
         }
         fetchData()
         
+        updateMessagesRealTime()
     },[])
 
     async function removeMsg(id){
-        console.log(id)
         await supabaseClient.from('messages').update({disable:true}).match({id:id})
 
         let newList = lstMsg.filter(x=>x.id!=id)
@@ -51,14 +63,7 @@ export default function Chat() {
             text: newMessage,
         };
 
-        const resp = await supabaseClient.from('messages').insert([msg])
-        console.log(resp.data[0])
-        const newMsg = resp.data
-
-        setlstMsg([
-            ...newMsg,
-            ...lstMsg,
-        ]);
+        await supabaseClient.from('messages').insert([msg])
 
         setMensagem('');
     }

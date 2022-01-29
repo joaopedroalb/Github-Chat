@@ -3,22 +3,7 @@ import { useContext, useState } from 'react';
 import appConfig from '../../config.json'
 import { useRouter } from 'next/router';
 import { UsernameContext } from '../Data/UsernameContext';
-
-function Title(props) {
-    const Tag = props.tag || 'h1';
-    return (
-        <>
-            <Tag>{props.children}</Tag>
-            <style jsx>{`
-                ${Tag} {
-                    color: ${appConfig.theme.colors.neutrals['000']};
-                    font-size: 24px;
-                    font-weight: 600;
-                }
-                `}</style>
-        </>
-    );
-}
+import Title from '../components/Title'
 
 export default function HomePage() {
     const IMAGE_DEFAULT = 'https://rafaturis.com.br/wp-content/uploads/2014/01/default-placeholder.png'

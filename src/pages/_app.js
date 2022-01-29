@@ -1,5 +1,5 @@
-import { UserNameProvider } from "../Data/UsernameContext"
-import GlobalStyle from "./globalstyle"
+import UserNameProvider from "../Data/UsernameContext"
+import GlobalStyle from "../styles/globalstyle"
 
 function MyApp({ Component, pageProps }) {
     return (

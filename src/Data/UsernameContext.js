@@ -1,10 +1,9 @@
-import { createContext } from "react";
-import { useState } from "react/cjs/react.development";
+import { createContext,useState } from "react";
 
 
-export const UsernameContext = createContext()
+export const UsernameContext = createContext({})
 
-export const UserNameProvider = ({children}) =>{
+export default function UserNameProvider({children}){
     const [username,setUsername] = useState('joaopedroalb')
 
     return <UsernameContext.Provider value={{username,setUsername}}>
